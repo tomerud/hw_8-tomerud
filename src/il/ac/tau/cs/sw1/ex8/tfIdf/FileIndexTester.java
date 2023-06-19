@@ -1,9 +1,11 @@
 package il.ac.tau.cs.sw1.ex8.tfIdf;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import il.ac.tau.cs.sw1.ex8.TesterUtils;
+import il.ac.tau.cs.sw1.ex8.histogram.HashMapHistogram;
 
 
 public class FileIndexTester {
@@ -25,7 +27,11 @@ public class FileIndexTester {
 	public static void testTFIDF(){
 		FileIndex fIndex = new FileIndex();
 		fIndex.indexDirectory(INPUT_FOLDER_1);
-		
+
+
+
+
+
 		try{
 			if (fIndex.getCountInFile("it", "s1.txt") != 1){
 				TesterUtils.printErrorNum(1);

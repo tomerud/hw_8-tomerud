@@ -18,6 +18,7 @@ public class HashMapHistogramTester  {
 		for (int i : intLst) {
 			intHist.addItem(i);
 		}
+
 		if (intHist.getCountForItem(1) != 3) {
 			TesterUtils.printErrorNum(1);
 		}

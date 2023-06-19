@@ -1,68 +1,90 @@
 package il.ac.tau.cs.sw1.ex8.histogram;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**************************************
  *  Add your code to this class !!!   *
  **************************************/
 public class HashMapHistogram<T extends Comparable<T>> implements IHistogram<T>{
 
-	// add members here
+	public Map<T, Integer> histogramMap;
 	
 	
 	//add constructor here, if needed
 
 	
 	public HashMapHistogram(){
+		histogramMap = new HashMap<>();
 	}
 	
 	@Override
 	public void addItem(T item) {
-		// add your code here
+		if (histogramMap.containsKey(item)) {
+			int currentCount = histogramMap.get(item);
+			histogramMap.put(item, currentCount + 1);
+		} else {
+			histogramMap.put(item, 1);
+		}
 	}
 	
 	@Override
 	public boolean removeItem(T item)  {
-		// add your code here
-		return false; //replace this with the correct value
+		if (histogramMap.containsKey(item)) {
+			int count = histogramMap.get(item);
+			if (count > 1) {
+				histogramMap.put(item, count - 1);
+			}
+			else {
+				histogramMap.remove(item);
+			}
+			return true;
+		}
+		return false;
 	}
 	
 	@Override
 	public void addAll(Collection<T> items) {
-		// add your code here
+		for (T item : items) {
+			addItem(item);
+		}
 	}
 
 	@Override
 	public int getCountForItem(T item) {
-		// add your code here
-		return 0; //replace this with the correct value
+
+		return histogramMap.getOrDefault(item, 0);
 	}
 
 	@Override
 	public void clear() {
-		// add your code here
+		histogramMap.clear();
 	}
 
 	@Override
 	public Set<T> getItemsSet() {
-		// add your code here
-		return null; //replace this with the correct value
+		Set<T> itemsSet = new HashSet<>();
+		for (Map.Entry<T, Integer> entry : histogramMap.entrySet()) {
+			if (entry.getValue() > 0) {
+				itemsSet.add(entry.getKey());
+			}
+		}
+		return itemsSet;
 	}
 	
 	@Override
 	public int getCountsSum() {
-		// add your code here
-		return 0; //replace this with the correct value
+		int sum = 0;
+		for (int count : histogramMap.values()) {
+			sum += count;
+		}
+		return sum;
+	}
+	public Map<T, Integer> getItemsMap() {
+		return histogramMap;
 	}
 
 	@Override
 	public Iterator<Map.Entry<T, Integer>> iterator() {
-		// add your code here
-		return null; //replace this with the correct value
+		return histogramMap.entrySet().iterator();
 	}
-	
-	//add private methods here, if needed
 }
